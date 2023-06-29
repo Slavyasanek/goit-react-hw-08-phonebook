@@ -5,8 +5,9 @@ export const Container = ({children}) => {
     maxW={{sm: '480px', md: '768px', xl: "1200px"}}
     my={0}
     mx={'auto'}
-    pr={{sm: '0', md: '15px'}}
-    pl={{sm: '0', md: '15px'}}>
+    pl={'15px'}
+    pr={'15px'}
+    >
         {children}
     </Box>)
 }

@@ -13,7 +13,7 @@ const handleFulfilled = (state, action) => {
     state.isRefreshing = false;
 }
 
-const handleUnlogged = (state, action) => {
+const handleUnlogged = state => {
     state.user = userInitiaLState;
     state.isLoggedIn = false;
     state.token = null;

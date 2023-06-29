@@ -3,15 +3,19 @@ import { Container } from "components/Container/Container"
 import { LoginMenu } from "components/LoginMenu/LoginMenu";
 import { UserMenu } from "components/UserMenu/UserMenu";
 import { AiOutlinePhone } from 'react-icons/ai'
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "redux/auth/selectors";
 
 export const Header = () => {
-    const isLoggedIn = false;
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+
     return (
         <Box
             bg={'teal.900'}
             pt={'20px'}
             pb={'20px'}
-            minW={'480px'}>
+            minW={'480px'}
+            as={'header'}>
             <Container>
                 <Flex
                     direction={'row'}
@@ -26,8 +30,7 @@ export const Header = () => {
                             }}
                             letterSpacing={'1.2px'}>PhoneBook</Heading>
                     </Flex>
-                    {isLoggedIn ? <UserMenu/> : <LoginMenu/>}
+                    {isLoggedIn ? <UserMenu /> : <LoginMenu />}
                 </Flex>
             </Container>
-        </Box>)
-}
+        </Box>)}
