@@ -4,11 +4,15 @@
   "private": true,
   "homepage": "https://slavyasanek.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "framer-motion": "^10.12.17",
     "nanoid": "^4.0.2",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
@@ -19,7 +23,6 @@
     "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",
     "redux-persist": "^6.0.0",
-    "styled-components": "^5.3.11",
     "web-vitals": "^2.1.3"
   },
   "scripts": {
