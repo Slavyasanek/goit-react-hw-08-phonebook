@@ -1,9 +1,17 @@
-export const theme = Object.freeze({
-    colors: {
-        mainText: '#27374D',
-        lightDecorative: '#526D82',
-        mainBcg: '#DDE6ED',
-        oddBcg: '#9DB2BF',
-        white: '#FFFFFF'
+import { extendTheme } from "@chakra-ui/react";
+
+//blue
+export const theme = extendTheme({
+    styles: {
+        global: {
+            body: {
+                color: 'teal.900',
+                bg: 'teal.50',
+                fontFamily: `"Roboto", "Noto", sans-serif`,
+            }
+        }
+    },
+    fonts: {
+        heading: `"Roboto", "Noto", sans-serif`
     }
 });
