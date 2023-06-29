@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/451.c56a5552.chunk.js","mappings":"iKAIA,UAJqB,WACjB,OAAQ,uBACX,C","sources":["pages/Registration.jsx"],"sourcesContent":["const Registration = () => {\n    return (<></>)\n};\n\nexport default Registration;\n"],"names":[],"sourceRoot":""}
