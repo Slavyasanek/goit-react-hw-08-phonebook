@@ -1,6 +1,6 @@
 import { Input } from "@chakra-ui/react"
 
-export const StyledInput = ({ type, placeholder, name, value, onChange, pattern, minLength }) => {
+export const StyledInput = ({ type, placeholder, name, value, onChange, pattern, minLength, id }) => {
     return (<>
         <Input type={type} required
             colorScheme="teal"
@@ -21,6 +21,7 @@ export const StyledInput = ({ type, placeholder, name, value, onChange, pattern,
             value={value}
             onChange={onChange}
             pattern={pattern}
-            minLength={minLength}/>
+            minLength={minLength}
+            id={id}/>
     </>)
 }
