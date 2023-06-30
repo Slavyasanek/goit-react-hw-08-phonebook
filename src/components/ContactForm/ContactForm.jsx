@@ -28,7 +28,7 @@ export const ContactForm = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (contacts.find(contact => contact.name.toLoweCase() === name.toLowerCase())) {
+        if (contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase() || contact.number === phone)) {
             alert(`${name} is already in contacts`);
             reset();
             return;
@@ -62,7 +62,7 @@ export const ContactForm = () => {
                         base: '300px',
                         md: '400px'
                     }}
-                    display={"flex"} flexDirection={'row'}><Box as={PiMagicWandLight} size={'24px'} flexShrink={0}/>Creating your own contact list is simplier than you can imagine</Heading>
+                    display={"flex"} flexDirection={'row'}><Box as={PiMagicWandLight} size={'24px'} flexShrink={0}/>Creating your own phonebook is simplier than you can imagine</Heading>
                 <FormLabel htmlFor={nameId} m={0}>Name</FormLabel>
                 <StyledInput id={nameId}
                     value={name}
