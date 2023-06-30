@@ -2,12 +2,14 @@ import { Box, Flex, Heading } from "@chakra-ui/react"
 import { Container } from "components/Container/Container"
 import { LoginMenu } from "components/LoginMenu/LoginMenu";
 import { UserMenu } from "components/UserMenu/UserMenu";
-import { AiOutlinePhone } from 'react-icons/ai'
+import { BsPhoneVibrate } from 'react-icons/bs'
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "redux/auth/selectors";
+import { Link } from "react-router-dom";
+import { selectIsLoggedIn, selectIsRefreshing } from "redux/auth/selectors";
 
 export const Header = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
+    const isRefreshing = useSelector(selectIsRefreshing)
 
     return (
         <Box
@@ -20,17 +22,31 @@ export const Header = () => {
                 <Flex
                     direction={'row'}
                     justifyContent={'space-between'}>
-                    <Flex direction={'row'} gap={'10px'} align={'center'}>
-                        <AiOutlinePhone size={40} color='teal' />
-                        <Heading as='h3' color={'teal.100'}
-                            fontSize={{
-                                sm: '20px',
-                                md: '24px',
-                                xl: '30px'
-                            }}
-                            letterSpacing={'1.2px'}>PhoneBook</Heading>
-                    </Flex>
-                    {isLoggedIn ? <UserMenu /> : <LoginMenu />}
+                    <Link to={'/'}>
+                        <Flex direction={'row'} gap={'10px'} align={'center'} role="group"
+                            transition={'cubic-bezier(.17,.67,.83,.67)'}>
+                            <Box as={BsPhoneVibrate}
+                                transition={'all 0.3s cubic-bezier(.17,.67,.83,.67)'}
+                                size={40}
+                                color='teal.300'
+                                _groupHover={{ color: 'white' }} />
+
+                            <Heading as='h3' color={'teal.100'}
+                                fontSize={{
+                                    sm: '20px',
+                                    md: '24px',
+                                    xl: '30px'
+                                }}
+                                transition={'all 0.3s cubic-bezier(.51,.15,.21,.75)'}
+                                letterSpacing={'1.2px'}
+                                _groupHover={{
+                                    color: "white",
+                                }}
+                            >PhoneBook</Heading>
+                        </Flex>
+                    </Link>
+                    {!isRefreshing && (isLoggedIn ? <UserMenu /> : <LoginMenu />)}
                 </Flex>
             </Container>
-        </Box>)}
+        </Box>)
+}
