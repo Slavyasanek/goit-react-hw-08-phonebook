@@ -10,7 +10,7 @@ const handleFulfilled = (state, action) => {
     state.user = action.payload.user;
     state.token = action.payload.token;
     state.isLoggedIn = true;
-    state.isRefreshing = false;
+    state.isRefreshing = false; 
 }
 
 const handleUnlogged = state => {
@@ -36,7 +36,11 @@ const authSlice = createSlice({
         .addCase(UserRefresh.pending, state => {
             state.isRefreshing = true;
         })
-        .addCase(UserRefresh.fulfilled, handleFulfilled)
+        .addCase(UserRefresh.fulfilled, (state, action) => {
+            state.user = action.payload;
+            state.isLoggedIn = true;
+            state.isRefreshing = false;
+        })
         .addCase(UserRefresh.rejected, handleUnlogged)
     }
 })

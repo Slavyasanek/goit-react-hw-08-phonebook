@@ -38,7 +38,7 @@ export const UserRefresh = createAsyncThunk('auth/refresh',
         }
         try {
             setToken(token);
-            return refreshMe();
+            return await refreshMe();
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
