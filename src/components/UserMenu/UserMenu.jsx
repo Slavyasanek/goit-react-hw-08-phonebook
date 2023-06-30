@@ -10,7 +10,7 @@ export const UserMenu = () => {
     const logOut = () => {
         dispatch(UserLogOut());
     }
-    return (<Flex align={'center'} direction={{base: 'column', sm: 'row'}} gap={'5px'}>
+    return (<Flex align={'center'} direction={'row'} gap={'5px'}>
         <Badge
             colorScheme="teal"
             variant={'solid'}
@@ -21,8 +21,10 @@ export const UserMenu = () => {
         <Badge
             colorScheme="teal"
             variant={'outline'}
-            fontSize={{ sm: '16px', md: '20px', xl: '22px' }}
-            p={'5px 10px'}>{user.email}</Badge>
+            fontSize={{ sm: '14px', md: '18px', xl: '20px' }}
+            p={'5px 10px'}
+            hideBelow={"768px"}
+            h={'100%'}>{user.email}</Badge>
         <Button onClick={logOut}
             colorScheme="teal"
             variant={'outline'}
