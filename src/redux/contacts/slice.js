@@ -20,7 +20,7 @@ const contactsSlice = createSlice({
     },
     reducers: {
         setFilter(state, action) {
-            return state = action.payload;
+            state.filter = action.payload;
         }
     },
     extraReducers: builder => {

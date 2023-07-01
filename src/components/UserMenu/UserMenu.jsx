@@ -1,5 +1,6 @@
 import { Badge, Button, Flex } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { UserLogOut } from "redux/auth/operations";
 import { selectUser } from "redux/auth/selectors";
 
@@ -11,6 +12,7 @@ export const UserMenu = () => {
         dispatch(UserLogOut());
     }
     return (<Flex align={'center'} direction={'row'} gap={'5px'}>
+        <Link to={'/contacts'}>
         <Badge
             colorScheme="teal"
             variant={'solid'}
@@ -18,6 +20,7 @@ export const UserMenu = () => {
             fontSize={{ sm: '16px', md: '20px', xl: '22px' }}
             p={'5px 10px'}>
             Hi, {user.name}</Badge>
+        </Link>
         <Badge
             colorScheme="teal"
             variant={'outline'}

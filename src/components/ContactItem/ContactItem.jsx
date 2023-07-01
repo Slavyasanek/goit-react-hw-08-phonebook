@@ -7,7 +7,7 @@ export const ContactItem = ({name, number, id}) => {
     const dispatch = useDispatch();
     const handleDelete = () => dispatch(deleteContact(id));
     
-    return (<WrapItem w={'100%'} position={'relative'}>
+    return (<WrapItem w={{base: '100%', xl: 'calc((100% - 2 * 18px) / 2)'}} position={'relative'}>
         <Tag 
             variant={'subtle'} 
             colorScheme="teal" 

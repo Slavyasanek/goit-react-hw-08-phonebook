@@ -6,21 +6,22 @@ import { selectFilteredContacts } from "redux/contacts/selectors"
 export const ContactList = () => {
     const contacts = useSelector(selectFilteredContacts);
 
-    if (contacts.length === 0) {
-        return (<Alert status="error" colorScheme="teal">No matches found</Alert>)
-    } else {
-        return (<Wrap
-            w={'100%'}
-            spacing={{
-                base: '14px',
-                md: '18px'
-            }}>
-            {contacts.map(contact =>
-                <ContactItem
-                    key={contact.id}
-                    name={contact.name}
-                    number={contact.number}
-                    id={contact.id} />)}
-        </Wrap>)
-    }
+    return (<Wrap
+        minW={'100%'}
+        spacing={{
+            base: '14px',
+            md: '18px'
+        }}>
+        {contacts.length > 0 ? (contacts.map(contact =>
+            <ContactItem
+                key={contact.id}
+                name={contact.name}
+                number={contact.number}
+                id={contact.id} />))
+            : <Alert
+                as={'li'}
+                status="info"
+                colorScheme="teal"
+                variant={'left-accent'}>No matches found</Alert>}
+    </Wrap>)
 }
