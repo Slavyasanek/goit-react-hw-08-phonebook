@@ -1,20 +1,35 @@
-import { Flex, Center, FormControl, InputRightElement, Button, Heading, FormLabel, InputGroup} from "@chakra-ui/react";
+import { Flex, Center, FormControl, InputRightElement, Button, Heading, FormLabel, InputGroup, useToast } from "@chakra-ui/react";
 import { StyledInput } from "components/StyledInput/StyledInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { UserSignUp } from "redux/auth/operations";
-import { selectIsLoggedIn } from "redux/auth/selectors";
-import { nanoid } from "nanoid";
+import { selectIsError, selectIsLoggedIn } from "redux/auth/selectors";
+import { nanoid } from "nanoid"; 
+import { setIsError } from "redux/auth/slice";
 
 const Registration = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(false);
-
+    const toast = useToast();
     const handleClick = () => setShow(!show);
     const dispatch = useDispatch();
+    const isError = useSelector(selectIsError);
+
+    useEffect(() => {
+        if (isError) {
+            toast({
+                position: 'top',
+                title: 'Someting went wrong...',
+                variant: 'left-accent',
+                status: 'error',
+                duration: '3000'
+            });
+            dispatch(setIsError());
+        }
+    }, [isError, dispatch, toast])
 
     const isLoggedIn = useSelector(selectIsLoggedIn);
     if (isLoggedIn) {
@@ -33,7 +48,7 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const user = {name, email, password};
+        const user = { name, email, password };
         console.log(user);
         dispatch(UserSignUp(user));
         reset();
@@ -62,39 +77,39 @@ const Registration = () => {
 
                 <FormLabel
                     m={0} htmlFor={nameId}>Name</FormLabel>
-                <StyledInput type={"text"} 
-                placeholder={"Enter your name"} 
-                name="name" onChange={handleChange} 
-                value={name}
-                pattern={"^[A-Za-z\u0080-\uFFFF ']+$"}
-                id={nameId}/>
+                <StyledInput type={"text"}
+                    placeholder={"Enter your name"}
+                    name="name" onChange={handleChange}
+                    value={name}
+                    pattern={"^[A-Za-z\u0080-\uFFFF ']+$"}
+                    id={nameId} />
 
                 <FormLabel htmlFor={emailId} m={0}>Email</FormLabel>
-                <StyledInput id={emailId} type={"email"} placeholder={"Enter your email"} name={"email"} value={email} onChange={handleChange}/>
+                <StyledInput id={emailId} type={"email"} placeholder={"Enter your email"} name={"email"} value={email} onChange={handleChange} />
 
                 <FormLabel htmlFor={passwdId} m={0}>Password</FormLabel>
                 <InputGroup maxW={{ base: '350px', md: '400px', xl: '550px' }}>
-                <StyledInput 
-                type={show ? 'text' : 'password'} 
-                placeholder={"Generate your unique password"} 
-                name={'password'} value={password} 
-                onChange={handleChange}
-                minLength={7}
-                id={passwdId}/>
+                    <StyledInput
+                        type={show ? 'text' : 'password'}
+                        placeholder={"Generate your unique password"}
+                        name={'password'} value={password}
+                        onChange={handleChange}
+                        minLength={7}
+                        id={passwdId} />
 
-                {password !== '' && <InputRightElement width='4.5rem' top={'50%'} transform={'translateY(-50%)'}>
-                    <Button h='1.75rem' size='sm' onClick={handleClick} colorScheme="teal" variant={'outline'}>
-                        {show ? 'Hide' : 'Show'}
-                    </Button>
-                </InputRightElement>}
+                    {password !== '' && <InputRightElement width='4.5rem' top={'50%'} transform={'translateY(-50%)'}>
+                        <Button h='1.75rem' size='sm' onClick={handleClick} colorScheme="teal" variant={'outline'}>
+                            {show ? 'Hide' : 'Show'}
+                        </Button>
+                    </InputRightElement>}
                 </InputGroup>
-                <Button 
-                size={'lg'} 
-                colorScheme="teal" 
-                variant={"solid"}
-                mt={'20px'}
-                w={'180px'}
-                type="submit">Sign Up</Button>
+                <Button
+                    size={'lg'}
+                    colorScheme="teal"
+                    variant={"solid"}
+                    mt={'20px'}
+                    w={'180px'}
+                    type="submit">Sign Up</Button>
             </Flex>
         </FormControl>
     </Center>)

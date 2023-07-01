@@ -10,7 +10,8 @@ const handleFulfilled = (state, action) => {
     state.user = action.payload.user;
     state.token = action.payload.token;
     state.isLoggedIn = true;
-    state.isRefreshing = false; 
+    state.isRefreshing = false;
+    state.isError = false;
 }
 
 const handleUnlogged = state => {
@@ -20,6 +21,10 @@ const handleUnlogged = state => {
     state.isRefreshing = false;
 }
 
+const handleRejected = state => {
+    state.isError = true;
+}
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
@@ -27,11 +32,19 @@ const authSlice = createSlice({
         token: null,
         isLoggedIn: false,
         isRefreshing: false,
+        isError: false,
+    },
+    reducers: {
+        setIsError: (state) =>  {
+            state.isError = false;
+        }
     },
     extraReducers: builder => {
         builder
         .addCase(UserSignUp.fulfilled, handleFulfilled)
+        .addCase(UserSignUp.rejected, handleRejected)
         .addCase(UserLogIn.fulfilled, handleFulfilled)
+        .addCase(UserLogIn.rejected, handleRejected)
         .addCase(UserLogOut.fulfilled, handleUnlogged)
         .addCase(UserRefresh.pending, state => {
             state.isRefreshing = true;
@@ -45,4 +58,5 @@ const authSlice = createSlice({
     }
 })
 
+export const {setIsError} = authSlice.actions;
 export const authReducer = authSlice.reducer;

@@ -1,18 +1,34 @@
-import { Flex, Center, FormControl, InputRightElement, Button, Heading, FormLabel, InputGroup } from "@chakra-ui/react";
-import { useState } from "react";
+import { Flex, Center, FormControl, InputRightElement, Button, Heading, FormLabel, InputGroup, useToast} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { selectIsLoggedIn } from "redux/auth/selectors";
+import { selectIsError, selectIsLoggedIn } from "redux/auth/selectors";
 import { StyledInput } from "components/StyledInput/StyledInput";
 import { UserLogIn } from "redux/auth/operations";
 import { nanoid } from "nanoid";
+import { setIsError } from "redux/auth/slice";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(false);
+    const isError = useSelector(selectIsError); 
+    const toast = useToast();
     const dispatch = useDispatch();
     const handleShow = () => setShow(!show);
+
+    useEffect(() => {
+        if (isError) {
+            toast({
+                position: 'top',
+                title: 'Incorrect password or email',
+                variant: 'left-accent',
+                status: 'error',
+                duration: '3000'
+            });
+            dispatch(setIsError());
+        }
+    }, [isError, dispatch, toast])
 
     const isLoggedIn = useSelector(selectIsLoggedIn);
     if (isLoggedIn) {
